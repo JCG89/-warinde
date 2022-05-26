@@ -37,6 +37,9 @@ form {
 .container {
   margin-top: 100px;
 }
+.sidebar {
+  cursor: pointer;
+}
 
 /* cart */
 .cart {
@@ -44,6 +47,9 @@ form {
   padding: 0;
   display: flex;
   justify-content: space-evenly;
+}
+.menu-right {
+  margin-right: 50px;
 }
 table {
   width: 100%;

@@ -1,10 +1,10 @@
 import { Navbar, List } from "..";
 import { list } from "../data/data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const SideMenu = ({ LoadCategory }) => {
+const SideMenu = ({ LoadCategory, category }) => {
   //Liens de la sidebar
-  const links = ["Légumes", "Fruits", "Produits Frais", "Épicerie", "Boissons"];
+  const links = ["Fruits", "Légumes", "Produits Frais", "Épicerie", "Boissons"];
 
   return (
     <>
@@ -12,7 +12,11 @@ const SideMenu = ({ LoadCategory }) => {
         <ul>
           {links.map((link, index) => {
             return (
-              <li key={index} onClick={() => LoadCategory(index)}>
+              <li
+                className={category === index && "active"} //Mettre en gras la categorie  active
+                key={index}
+                onClick={() => LoadCategory(index)}
+              >
                 {link}
               </li>
             );
@@ -24,22 +28,39 @@ const SideMenu = ({ LoadCategory }) => {
 };
 const App = () => {
   const [category, setCategory] = useState(0);
-  //  Fonction pour charger les catégories par l'index au click
+  const [isFiltering, setIsFiltering] = useState(false); //Filtre de base
 
+  const [filtered, setFiltered] = useState(false); //Produits filtrés
+
+  //  Fonction pour charger les catégories par l'index au click
   const LoadCategory = (i) => {
     setCategory(i);
-    console.log(i);
   };
+  // Fonction de recherche des produits
+  const search = (input) => {
+    const fullList = list.flat();
+    let result = fullList.filter((product) => {
+      const name = product.name.toLocaleLowerCase();
+      const term = input.toLocaleLowerCase();
+
+      return name.indexOf(term) > -1;
+    });
+    setFiltered(result);
+  };
+  useEffect(() => {}, []);
   return (
     <>
-      <Navbar />
+      <Navbar filter={search} setIsFiltering={setIsFiltering} />
 
       <div className="container">
         <div className="row">
-          <SideMenu LoadCategory={LoadCategory} />
+          <SideMenu LoadCategory={LoadCategory} category={category} />
           <div className="col-sm">
             <div className="row">
-              <List data={list} category={category} />
+              <List
+                data={isFiltering ? filtered : list[category]}
+                category={category}
+              />
             </div>
           </div>
         </div>
