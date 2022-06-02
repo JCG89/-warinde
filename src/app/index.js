@@ -6,11 +6,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export const Navbar = ({ filter, setIsFiltering }) => {
+export const Navbar = ({ filter, setIsFiltering, count }) => {
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
-      <a href="" className="navbar-brand crimson">
+      <a href="" className="navbar-brand black">
         @WARINDE
       </a>
       <button
@@ -44,11 +46,17 @@ export const Navbar = ({ filter, setIsFiltering }) => {
           <div className="menu-right"> </div>
         </div>
       </div>
-      <FontAwesomeIcon icon={faShoppingCart} style={{ color: "red" }} />
+      <Link to="/panier">
+        {" "}
+        <i className="far fa-shopping-cart fa-2x">
+          <FontAwesomeIcon icon={faShoppingCart} style={{ color: "red" }} />
+        </i>
+        <span className="badge rounded-pill bg-success">{count}</span>
+      </Link>
     </nav>
   );
 };
-export const Card = ({ product }) => {
+export const Card = ({ product, addToCart, count }) => {
   return (
     <div className="col-sm-4">
       <div className="card">
@@ -72,7 +80,7 @@ export const Card = ({ product }) => {
               </p>
               <button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target={`#${product.ref}`}
               >
@@ -82,37 +90,38 @@ export const Card = ({ product }) => {
           </div>
         </div>
       </div>
-      <Modal product={product} />
+      <Modal product={product} addToCart={addToCart} count={count} />
     </div>
   );
 };
-export const Modal = ({ product }) => {
+export const Modal = ({ product, count, addToCart }) => {
+  const [qty, setQty] = useState(0);
   return (
     <div
       className="modal fade "
       id={product.ref}
       data-backdrop="static"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">
+      <div className="modal-dialog modal-xl" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="staticBackdropLabel">
               {product.name}
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <div className="row">
               <div className="col-sm-4">
                 <img
@@ -127,7 +136,7 @@ export const Modal = ({ product }) => {
               </div>
 
               <div className="col-sm">
-                <p class="lead">
+                <p className="lead">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore
                 </p>
@@ -140,11 +149,19 @@ export const Modal = ({ product }) => {
                   role="group"
                   aria-label="Basic example"
                 >
-                  <button type="button" className="btn btn-secondary">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setQty(count > 0 ? count - 1 : 0)}
+                  >
                     -
                   </button>
-                  <span className="btn btn-light qty">1</span>
-                  <button type="button" className="btn btn-secondary">
+                  <span className="btn btn-light qty">{qty}</span>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setQty(count + 1)}
+                  >
                     +
                   </button>
                 </div>
@@ -153,15 +170,19 @@ export const Modal = ({ product }) => {
             </div>
           </div>
 
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-bs-dismiss="modal"
             >
               Fermer
             </button>
-            <button type="button" class="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => addToCart(count + 1)}
+            >
               Ajouter au panier
             </button>
           </div>
@@ -170,12 +191,18 @@ export const Modal = ({ product }) => {
     </div>
   );
 };
-export const List = ({ data, category }) => {
+export const List = ({ data, category, addToCart, count }) => {
   return (
     <div className="col-sm">
       <div className="row">
         {data.map((product) => (
-          <Card key={product.ref} product={product} />
+          <Card
+            key={product.ref}
+            product={product}
+            addToCart={addToCart}
+            count={count}
+            category={category}
+          />
         ))}
       </div>
     </div>
