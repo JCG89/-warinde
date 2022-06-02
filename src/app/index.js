@@ -56,7 +56,7 @@ export const Navbar = ({ filter, setIsFiltering, count }) => {
     </nav>
   );
 };
-export const Card = ({ product, addToCart, count }) => {
+export const Card = ({ item, addToCart }) => {
   return (
     <div className="col-sm-4">
       <div className="card">
@@ -64,25 +64,24 @@ export const Card = ({ product, addToCart, count }) => {
           width="170"
           height="170"
           src={
-            process.env.PUBLIC_URL +
-            `/assets/${product.category}/${product.image}`
+            process.env.PUBLIC_URL + `/assets/${item.category}/${item.image}`
           }
-          alt={product.name}
+          alt={item.name}
         />
         <div className="card-body">
           <div className="row">
             <div className="col-sm-6">
-              <h4>{product.name}</h4>
+              <h4>{item.name}</h4>
             </div>
             <div className="col-sm-6">
               <p>
-                {product.price}/{product.unit}
+                {item.price}/{item.unit}
               </p>
               <button
                 type="button"
                 className="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target={`#${product.ref}`}
+                data-bs-target={`#${item.ref}`}
               >
                 <FontAwesomeIcon icon={faEye} />
               </button>
@@ -90,16 +89,16 @@ export const Card = ({ product, addToCart, count }) => {
           </div>
         </div>
       </div>
-      <Modal product={product} addToCart={addToCart} count={count} />
+      <Modal item={item} addToCart={addToCart} />
     </div>
   );
 };
-export const Modal = ({ product, count, addToCart }) => {
+export const Modal = ({ item, addToCart }) => {
   const [qty, setQty] = useState(0);
   return (
     <div
       className="modal fade "
-      id={product.ref}
+      id={item.ref}
       data-backdrop="static"
       tabIndex="-1"
       role="dialog"
@@ -110,7 +109,7 @@ export const Modal = ({ product, count, addToCart }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="staticBackdropLabel">
-              {product.name}
+              {item.name}
             </h5>
             <button
               type="button"
@@ -129,9 +128,9 @@ export const Modal = ({ product, count, addToCart }) => {
                   height="170"
                   src={
                     process.env.PUBLIC_URL +
-                    `/assets/${product.category}/${product.image}`
+                    `/assets/${item.category}/${item.image}`
                   }
-                  alt={product.name}
+                  alt={item.name}
                 />
               </div>
 
@@ -141,7 +140,7 @@ export const Modal = ({ product, count, addToCart }) => {
                   do eiusmod tempor incididunt ut labore et dolore
                 </p>
                 <h3 className="price">
-                  {product.price}€/{product.unit}
+                  {item.price}€/{item.unit}
                 </h3>{" "}
                 <br />
                 <div
@@ -152,7 +151,7 @@ export const Modal = ({ product, count, addToCart }) => {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={() => setQty(count > 0 ? count - 1 : 0)}
+                    onClick={() => setQty(qty > 0 ? qty - 1 : 0)}
                   >
                     -
                   </button>
@@ -160,7 +159,7 @@ export const Modal = ({ product, count, addToCart }) => {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={() => setQty(count + 1)}
+                    onClick={() => setQty(qty + 1)}
                   >
                     +
                   </button>
@@ -181,7 +180,7 @@ export const Modal = ({ product, count, addToCart }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => addToCart(count + 1)}
+              onClick={() => addToCart(item, qty)}
             >
               Ajouter au panier
             </button>
@@ -191,16 +190,16 @@ export const Modal = ({ product, count, addToCart }) => {
     </div>
   );
 };
-export const List = ({ data, category, addToCart, count }) => {
+export const List = ({ data, category, addToCart, updateCart }) => {
   return (
     <div className="col-sm">
       <div className="row">
-        {data.map((product) => (
+        {data.map((item) => (
           <Card
-            key={product.ref}
-            product={product}
+            key={item.ref}
+            item={item}
             addToCart={addToCart}
-            count={count}
+            updateCart={updateCart}
             category={category}
           />
         ))}

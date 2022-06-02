@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "..";
+import { List } from "../../../app/index";
 
 export const SideMenu = ({ loadCategory, category }) => {
   //Liens de la sidebar
@@ -28,7 +28,7 @@ export const SideMenu = ({ loadCategory, category }) => {
 const Home = ({
   category,
   data,
-  count,
+  updateCart,
   addToCart,
   loadCategory,
   isFiltering,
@@ -44,8 +44,8 @@ const Home = ({
               <List
                 data={isFiltering ? filtered : data[category]}
                 category={category}
-                count={count}
                 addToCart={addToCart}
+                updateCart={updateCart}
               />
             </div>
           </div>

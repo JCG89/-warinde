@@ -10,7 +10,7 @@ export const actions = {
 };
 
 // Fonctions
-const uid = Math.random().toString(34).slice(2);
+
 export const addToCart = (item, quantity) => {
   return {
     type: actions.ADD_TO_CART,

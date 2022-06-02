@@ -3,19 +3,20 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./app/lib/store";
-import App from "./app/views";
-import { addToCart } from "./app/lib/actions";
+import { AppContainer } from "./app/views/containers/index";
 
-console.log(store.getState());
-const unsubscribe = store.subscribe(() => console.log(store.getState()));
-store.dispatch(addToCart({ name: "citron" }, 2));
-store.dispatch(addToCart({ name: "kiwi" }, 5));
+// import { addToCart } from "./app/lib/actions";
 
-unsubscribe();
+// console.log(store.getState());
+// const unsubscribe = store.subscribe(() => console.log(store.getState()));
+// store.dispatch(addToCart({ name: "citron" }, 2));
+// store.dispatch(addToCart({ name: "kiwi" }, 5));
+
+// unsubscribe();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>
 );
 

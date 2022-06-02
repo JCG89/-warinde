@@ -1,10 +1,11 @@
-import { Navbar } from "..";
-import { list } from "../data/data";
+import { Navbar } from "../..";
+import { list } from "../../data/data";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartPage } from "./CartPage";
 import Home from "./Home";
-const App = () => {
+const App = (props) => {
+  const { items, onAddToCart, onUpdateToCart } = props;
   const [category, setCategory] = useState(0);
   const [isFiltering, setIsFiltering] = useState(false); //Filtre de base
   const [count, setCount] = useState(0);
@@ -17,8 +18,8 @@ const App = () => {
   // Fonction de recherche des produits
   const search = (input) => {
     const fullList = list.flat();
-    let result = fullList.filter((product) => {
-      const name = product.name.toLocaleLowerCase();
+    let result = fullList.filter((item) => {
+      const name = item.name.toLocaleLowerCase();
       const term = input.toLocaleLowerCase();
 
       return name.indexOf(term) > -1;
@@ -26,6 +27,13 @@ const App = () => {
     setFiltered(result);
   };
   useEffect(() => {}, []);
+
+  const add = (item, quantity) => {
+    onAddToCart(item, quantity);
+  };
+  const update = (item, quantity) => {
+    onUpdateToCart(item, quantity);
+  };
   return (
     <>
       <BrowserRouter>
@@ -40,8 +48,8 @@ const App = () => {
                 <Home
                   loadCategory={loadCategory}
                   category={category}
-                  addToCart={setCount}
-                  count={count}
+                  addToCart={add}
+                  updateCart={update}
                   data={list}
                   setIsFiltering={setIsFiltering}
                   filter={search}

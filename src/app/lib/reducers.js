@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 const initialState = {
   items: [],
 };
-const onlineStore = (state = initialState, action) => {
+const onlineStoreReducer = (state = initialState, action) => {
   switch (action.type) {
     //   Action lié à l'ajout au panier
     case actions.ADD_TO_CART:
@@ -27,9 +27,11 @@ const onlineStore = (state = initialState, action) => {
     case actions.REMOVE_FROM_CART:
       return Object.assign({}, state, {
         items: state.items.filter((item) => {
-          return item.id != action.payload.id;
+          return item.id !== action.payload.id;
         }),
       });
+    default:
+      return state;
   }
 };
-export default onlineStore;
+export default onlineStoreReducer;
