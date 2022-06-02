@@ -34,6 +34,7 @@ const App = () => {
           <Routes>
             <Route exact path="/panier" element={<CartPage />} />
             <Route
+              exact
               path="/"
               element={
                 <Home

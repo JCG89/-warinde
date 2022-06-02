@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 export const Navbar = ({ filter, setIsFiltering, count }) => {
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
-      <a href="" className="navbar-brand black">
+      <Link to="/" className="navbar-brand black">
         @WARINDE
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
