@@ -16,7 +16,7 @@ const onlineStoreReducer = (state = initialState, action) => {
     case actions.UPDATE_CART:
       return Object.assign({}, state, {
         items: state.items.map((item) => {
-          return item.id === action.payload.item.id
+          return item.id === action.payload.id
             ? Object.assign({}, item, {
                 quantity: action.payload.quantity,
               })

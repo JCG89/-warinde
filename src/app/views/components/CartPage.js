@@ -6,8 +6,8 @@ const Row = (props) => {
   const { id, details, quantity } = props.item;
   const [qty, setQty] = useState(quantity);
   const dispatch = useDispatch(quantity, details);
-  const update = (details, quantity) => {
-    dispatch(updateCart(details, quantity));
+  const update = (quantity) => {
+    dispatch(updateCart(id, quantity));
   };
   const remove = (id) => {
     dispatch(removeFromCart(id));
@@ -35,7 +35,7 @@ const Row = (props) => {
             onClick={() => {
               if (qty > 0) {
                 setQty(qty - 1);
-                update(details, qty);
+                update(qty);
               }
               return 0;
             }}
@@ -48,7 +48,7 @@ const Row = (props) => {
             className="btn btn-secondary"
             onClick={() => {
               setQty(qty + 1);
-              update(details, qty);
+              update(qty);
             }}
           >
             +
@@ -83,7 +83,7 @@ const Table = ({ items }) => {
         <th width="200">Total</th>
       </tr>
       {items.map((item) => {
-        return <Row item={item} key={item.ref} />;
+        return <Row item={item} key={item.id} />;
       })}
     </table>
   );
@@ -102,7 +102,7 @@ export const CartPage = () => {
     setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0));
     setTotal(subTotal + shipping);
     console.log(`Vous avez ${items.length} dans le panier`);
-  }, []);
+  }, [items, total, subTotal]);
   return (
     <>
       <div className="container">
@@ -134,7 +134,7 @@ export const CartPage = () => {
                 <ul className="list-group flex">
                   <li className="text-left">Total</li>
                   <li className="text-right">
-                    €{subTotal == "0.00" ? 0.0 : total.toFixed(2)}
+                    €{subTotal == 0.0 ? "0.00" : total.toFixed(2)}
                   </li>
                 </ul>
               </li>

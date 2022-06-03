@@ -17,10 +17,10 @@ export const addToCart = (item, quantity) => {
     payload: { id: uuidv4(), quantity: quantity, details: item },
   };
 };
-export const updateCart = (item, quantity) => {
+export const updateCart = (id, quantity) => {
   return {
     type: actions.UPDATE_CART,
-    payload: { item: item, quantity: quantity },
+    payload: { id: id, quantity: quantity },
   };
 };
 export const removeFromCart = (id) => {
