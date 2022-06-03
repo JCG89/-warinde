@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import App from "../components";
-import { updateCart, removeFromCart } from "../../lib/actions";
+import { updateCart } from "../../lib/actions";
 
 export const AppContainer = connect(
   function mapStateToProps(state) {

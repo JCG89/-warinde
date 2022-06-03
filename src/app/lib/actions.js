@@ -23,9 +23,9 @@ export const updateCart = (item, quantity) => {
     payload: { item: item, quantity: quantity },
   };
 };
-export const removeFromCart = (item) => {
+export const removeFromCart = (id) => {
   return {
     type: actions.REMOVE_FROM_CART,
-    payload: item,
+    payload: id,
   };
 };

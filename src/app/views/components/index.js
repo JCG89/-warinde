@@ -8,7 +8,7 @@ const App = (props) => {
   const { onUpdateToCart } = props;
   const [category, setCategory] = useState(0);
   const [isFiltering, setIsFiltering] = useState(false); //Filtre de base
-  const [count, setCount] = useState(0);
+
   const [filtered, setFiltered] = useState(false); //Produits filtrés
 
   //  Fonction pour charger les catégories par l'index au click
@@ -34,7 +34,7 @@ const App = (props) => {
   return (
     <>
       <BrowserRouter>
-        <Navbar filter={search} setIsFiltering={setIsFiltering} count={count} />
+        <Navbar filter={search} setIsFiltering={setIsFiltering} />
         <div className="container">
           <Routes>
             <Route exact path="/panier" element={<CartPage />} />

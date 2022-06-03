@@ -61,7 +61,7 @@ export const Navbar = ({ filter, setIsFiltering }) => {
     </nav>
   );
 };
-export const Card = ({ item, addToCart }) => {
+export const Card = ({ item }) => {
   return (
     <div className="col-sm-4">
       <div className="card">
