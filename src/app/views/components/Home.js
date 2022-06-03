@@ -29,7 +29,6 @@ const Home = ({
   category,
   data,
   updateCart,
-  addToCart,
   loadCategory,
   isFiltering,
   filtered,
@@ -44,7 +43,6 @@ const Home = ({
               <List
                 data={isFiltering ? filtered : data[category]}
                 category={category}
-                addToCart={addToCart}
                 updateCart={updateCart}
               />
             </div>

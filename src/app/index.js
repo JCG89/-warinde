@@ -8,8 +8,11 @@ import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "./lib/actions";
 
-export const Navbar = ({ filter, setIsFiltering, count }) => {
+export const Navbar = ({ filter, setIsFiltering }) => {
+  const items = useSelector((state) => state.items);
   return (
     <nav className="navbar orange navbar-expand-lg navbar-light bg-light fixed-top">
       <Link to="/" className="navbar-brand black">
@@ -51,7 +54,9 @@ export const Navbar = ({ filter, setIsFiltering, count }) => {
         <i className="far fa-shopping-cart fa-2x">
           <FontAwesomeIcon icon={faShoppingCart} style={{ color: "red" }} />
         </i>
-        <span className="badge rounded-pill bg-success">{count}</span>
+        <span className="badge rounded-pill bg-success">
+          {items.length > 0 && items.length}
+        </span>
       </Link>
     </nav>
   );
@@ -89,12 +94,17 @@ export const Card = ({ item, addToCart }) => {
           </div>
         </div>
       </div>
-      <Modal item={item} addToCart={addToCart} />
+      <Modal item={item} />
     </div>
   );
 };
-export const Modal = ({ item, addToCart }) => {
+export const Modal = ({ item }) => {
   const [qty, setQty] = useState(0);
+  const dispatch = useDispatch();
+
+  const add = (item, quantity) => {
+    dispatch(addToCart(item, quantity));
+  };
   return (
     <div
       className="modal fade "
@@ -180,7 +190,7 @@ export const Modal = ({ item, addToCart }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => addToCart(item, qty)}
+              onClick={() => add(item, qty)}
             >
               Ajouter au panier
             </button>
@@ -190,7 +200,7 @@ export const Modal = ({ item, addToCart }) => {
     </div>
   );
 };
-export const List = ({ data, category, addToCart, updateCart }) => {
+export const List = ({ data, category, updateCart }) => {
   return (
     <div className="col-sm">
       <div className="row">
@@ -198,7 +208,6 @@ export const List = ({ data, category, addToCart, updateCart }) => {
           <Card
             key={item.ref}
             item={item}
-            addToCart={addToCart}
             updateCart={updateCart}
             category={category}
           />
