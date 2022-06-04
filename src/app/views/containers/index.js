@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import App from "../components";
-import { updateCart } from "../../lib/actions";
+import { saveCart } from "../../lib/actions";
 
 export const AppContainer = connect(
   function mapStateToProps(state) {
@@ -9,7 +9,7 @@ export const AppContainer = connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
-      onUpdateCart: (item, quantity) => dispatch(updateCart(item, quantity)),
+      saveLocalStorage: (items) => dispatch(saveCart(items)),
     };
   }
 )(App);

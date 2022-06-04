@@ -29,3 +29,9 @@ export const removeFromCart = (id) => {
     payload: id,
   };
 };
+export const saveCart = (items) => {
+  return {
+    type: actions.SAVE_CART,
+    payload: { items: items },
+  };
+};

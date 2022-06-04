@@ -99,7 +99,7 @@ export const Card = ({ item }) => {
   );
 };
 export const Modal = ({ item }) => {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
   const add = (item, quantity) => {
@@ -161,7 +161,7 @@ export const Modal = ({ item }) => {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={() => setQty(qty > 0 ? qty - 1 : 0)}
+                    onClick={() => setQty(qty > 1 ? qty - 1 : 1)}
                   >
                     -
                   </button>

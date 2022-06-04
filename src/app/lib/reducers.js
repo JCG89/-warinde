@@ -2,8 +2,14 @@
 import { actions } from "./actions";
 import { v4 as uuidv4 } from "uuid";
 
+const saveToLocalStorage = (object) => {
+  localStorage.setItem("items", JSON.stringify(object));
+};
 const initialState = {
-  items: [],
+  items:
+    JSON.parse(localStorage.getItem("items")) !== null
+      ? JSON.parse(localStorage.getItem("items"))
+      : [],
 };
 const onlineStoreReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,6 +36,10 @@ const onlineStoreReducer = (state = initialState, action) => {
           return item.id !== action.payload;
         }),
       });
+    case actions.SAVE_CART:
+      saveToLocalStorage(action.payload.items);
+      return state;
+
     default:
       return state;
   }

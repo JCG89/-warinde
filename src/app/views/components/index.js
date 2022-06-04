@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartPage } from "./CartPage";
 import Home from "./Home";
 const App = (props) => {
-  const { onUpdateToCart } = props;
+  const { items, saveLocalStorage } = props;
   const [category, setCategory] = useState(0);
   const [isFiltering, setIsFiltering] = useState(false); //Filtre de base
 
@@ -26,11 +26,10 @@ const App = (props) => {
     });
     setFiltered(result);
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    saveLocalStorage(items);
+  }, [items]);
 
-  const update = (item, quantity) => {
-    onUpdateToCart(item, quantity);
-  };
   return (
     <>
       <BrowserRouter>
@@ -45,7 +44,6 @@ const App = (props) => {
                 <Home
                   loadCategory={loadCategory}
                   category={category}
-                  updateCart={update}
                   data={list}
                   setIsFiltering={setIsFiltering}
                   filter={search}

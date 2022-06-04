@@ -6,12 +6,20 @@ const Row = (props) => {
   const { id, details, quantity } = props.item;
   const [qty, setQty] = useState(quantity);
   const dispatch = useDispatch(quantity, details);
-  const update = (quantity) => {
-    dispatch(updateCart(id, quantity));
+  const update = (action) => {
+    if (action === "increment") {
+      setQty(qty + 1);
+    }
+    if (action === "decrement") {
+      setQty(qty - 1);
+    }
   };
   const remove = (id) => {
     dispatch(removeFromCart(id));
   };
+  useEffect(() => {
+    dispatch(updateCart(id, qty));
+  }, [qty]);
   return (
     <tr>
       <td>
@@ -34,8 +42,7 @@ const Row = (props) => {
             className="btn btn-secondary"
             onClick={() => {
               if (qty > 0) {
-                setQty(qty - 1);
-                update(qty);
+                update("decrement");
               }
               return 0;
             }}
@@ -47,15 +54,14 @@ const Row = (props) => {
             type="button"
             className="btn btn-secondary"
             onClick={() => {
-              setQty(qty + 1);
-              update(qty);
+              update("increment");
             }}
           >
             +
           </button>
         </div>
       </td>
-      <td>{(quantity * details.price).toFixed(2)}</td>
+      <td>{(qty * details.price).toFixed(2)}</td>
       <td>
         <button
           type="button"
@@ -98,7 +104,7 @@ export const CartPage = () => {
   useEffect(() => {
     let totals = items.map((item) => {
       return item.quantity * item.details.price;
-    });
+    }, []);
     setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0));
     setTotal(subTotal + shipping);
     console.log(`Vous avez ${items.length} dans le panier`);
@@ -112,20 +118,20 @@ export const CartPage = () => {
           </div>
           <div className="col-sm-3 order-summary">
             <ul className="list-group">
-              <li className="list-group-item">Order Summary</li>
+              <li className="list-group-item">Récapitulatif de la commande</li>
 
               <li className="list-group-item">
                 <ul className="list-group flex">
-                  <li className="text-left">Subtotal</li>
+                  <li className="text-left">Sous total</li>
                   <li className="text-right">{subTotal.toFixed(2)}</li>
                 </ul>
                 <ul className="list-group flex">
-                  <li className="text-left">shipping</li>
+                  <li className="text-left">Expédition</li>
                   <li className="text-right">€{shipping.toFixed(2)}</li>
                 </ul>
                 <ul className="list-group flex">
                   <li className="coupon crimson">
-                    <small> Add Coupon Code</small>
+                    <small> Ajouter Code promo</small>
                   </li>
                 </ul>
               </li>
@@ -145,7 +151,7 @@ export const CartPage = () => {
               disabled="true"
             >
               <a href="#" className="white">
-                Checkout
+                Vérifier
               </a>
             </button>
           </div>

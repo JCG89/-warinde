@@ -25,14 +25,7 @@ export const SideMenu = ({ loadCategory, category }) => {
     </>
   );
 };
-const Home = ({
-  category,
-  data,
-  updateCart,
-  loadCategory,
-  isFiltering,
-  filtered,
-}) => {
+const Home = ({ category, data, loadCategory, isFiltering, filtered }) => {
   return (
     <>
       <div className="container">
@@ -43,7 +36,6 @@ const Home = ({
               <List
                 data={isFiltering ? filtered : data[category]}
                 category={category}
-                updateCart={updateCart}
               />
             </div>
           </div>
