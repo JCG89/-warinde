@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart, removeFromCart } from "../../lib/actions";
+import { Link } from "react-router-dom";
 
 const Row = (props) => {
   const { id, details, quantity } = props.item;
@@ -99,7 +100,7 @@ export const CartPage = () => {
   const items = useSelector((state) => state.items);
   const [subTotal, setSubTotal] = useState(0.0);
   const [total, setTotal] = useState(0.0);
-  const shipping = 10.0;
+  const shipping = 2.0;
 
   useEffect(() => {
     let totals = items.map((item) => {
@@ -145,15 +146,15 @@ export const CartPage = () => {
                 </ul>
               </li>
             </ul>
-            <button
-              type="button"
-              className="btn btn-light btn-lg btn-block checkout bg-crimson"
-              disabled="true"
+            <Link
+              to="/checkout"
+              className={`white btn btn-light btn-lg btn-block checkout ${
+                !items.length && "disabled"
+              } bg-warning`}
+              style={{ color: "white" }}
             >
-              <a href="#" className="white">
-                Vérifier
-              </a>
-            </button>
+              Aperçu de la commande
+            </Link>
           </div>
         </div>
       </div>

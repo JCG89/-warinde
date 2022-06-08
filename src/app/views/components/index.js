@@ -2,8 +2,11 @@ import { Navbar } from "../..";
 import { list } from "../../data/data";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UserProfileContextProvider from "../../lib/UserProfileContext";
 import { CartPage } from "./CartPage";
+import { Checkout } from "./Ckeckout";
 import Home from "./Home";
+import { Confirm } from "./Confirm";
 const App = (props) => {
   const { items, saveLocalStorage } = props;
   const [category, setCategory] = useState(0);
@@ -26,34 +29,42 @@ const App = (props) => {
     });
     setFiltered(result);
   };
-  useEffect(() => {
-    saveLocalStorage(items);
-  }, [items]);
+  useEffect(
+    () => {
+      saveLocalStorage(items);
+    },
+    saveLocalStorage,
+    [items]
+  );
 
   return (
     <>
       <BrowserRouter>
-        <Navbar filter={search} setIsFiltering={setIsFiltering} />
-        <div className="container">
-          <Routes>
-            <Route exact path="/panier" element={<CartPage />} />
-            <Route
-              exact
-              path="/"
-              element={
-                <Home
-                  loadCategory={loadCategory}
-                  category={category}
-                  data={list}
-                  setIsFiltering={setIsFiltering}
-                  filter={search}
-                  isFiltering={isFiltering}
-                  filtered={filtered}
-                />
-              }
-            />
-          </Routes>
-        </div>
+        <UserProfileContextProvider>
+          <Navbar filter={search} setIsFiltering={setIsFiltering} />
+          <div className="container">
+            <Routes>
+              <Route exact path="/panier" element={<CartPage />} />
+              <Route exact path="/checkout" element={<Checkout />} />
+              <Route exact path="/confirmation" element={<Confirm />} />
+              <Route
+                exact
+                path="/"
+                element={
+                  <Home
+                    loadCategory={loadCategory}
+                    category={category}
+                    data={list}
+                    setIsFiltering={setIsFiltering}
+                    filter={search}
+                    isFiltering={isFiltering}
+                    filtered={filtered}
+                  />
+                }
+              />
+            </Routes>
+          </div>
+        </UserProfileContextProvider>
       </BrowserRouter>
     </>
   );

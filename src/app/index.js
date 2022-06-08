@@ -31,7 +31,7 @@ export const Navbar = ({ filter, setIsFiltering }) => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <div className="ml-auto cart">
+        <div className="ml-auto cart1">
           <div>
             <form className="search form-inline my-2 my-lg-0">
               <input
@@ -46,9 +46,10 @@ export const Navbar = ({ filter, setIsFiltering }) => {
               />
             </form>
           </div>
-          <div className="menu-right"> </div>
         </div>
       </div>
+      <div className="menu-right inscription"> Inscription</div>
+      <div className="menu-right inscription"> Contact</div>
       <Link to="/panier">
         {" "}
         <i className="far fa-shopping-cart fa-2x">
@@ -63,11 +64,11 @@ export const Navbar = ({ filter, setIsFiltering }) => {
 };
 export const Card = ({ item }) => {
   return (
-    <div className="col-sm-4">
+    <div className="col-sm-6">
       <div className="card">
         <img
           width="170"
-          height="170"
+          height="250"
           src={
             process.env.PUBLIC_URL + `/assets/${item.category}/${item.image}`
           }
@@ -115,7 +116,7 @@ export const Modal = ({ item }) => {
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog modal-xl" role="document">
+      <div className="modal-dialog modal-l" role="document">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="staticBackdropLabel">

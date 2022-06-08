@@ -1,6 +1,5 @@
 // Reducer regroupant toutes les action
 import { actions } from "./actions";
-import { v4 as uuidv4 } from "uuid";
 
 const saveToLocalStorage = (object) => {
   localStorage.setItem("items", JSON.stringify(object));
