@@ -39,11 +39,15 @@ form {
 .navbar-brand:hover {
   color: lightblue;
 }
-.inscription {
+.menu {
   margin-right: 55px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
+  display: flex;
+}
+.inscription {
+  margin: 15px;
 }
 .login {
   display: inline-block;
@@ -218,18 +222,62 @@ footer {
 .red {
   border: 1px solid crimson;
 }
-@media screen and (max-width: 640px) {
-  body {
-    margin-top: 360px;
+
+@media screen and (max-width: 667px) {
+  .badge {
+    margin-right: 325px;
   }
-  .cart p {
-    margin-top: 15px;
+  .sidebar {
+    position: relative;
+
+    top: 40px;
+    background-color: #ffff;
   }
-  .shopping-cart {
-    height: 300px;
+  .row {
+    position: relative;
+    top: 25px;
+  }
+  .btn {
+    position: relative;
+    bottom: 12px;
+    width: 40%;
+  }
+  .modal-footer > .btn {
+    width: auto;
+    justify-content: center;
+  }
+
+  table {
+    width: 100% auto;
+    font-size: 12px;
+    margin-right: 25px;
+    position: relative;
+    top: 5px;
+  }
+  .bg-warning {
+    position: relative;
+    bottom: 5px;
+    font-size: 9px important!;
     width: 100%;
-    position: fixed;
-    right: 0;
-    top: 60px;
+  }
+  .order-summary {
+    position: relative;
+    top: 20px;
+    margin-left: 25px;
+  }
+  .far-x2 {
+    margin-top: 50px;
+  }
+  .badge {
+    position: absolute;
+  }
+  .container > .row {
+    width: 100%;
+    margin-right: 5px;
+  }
+
+  .row {
+    width: 100%;
+    margin: 0 auto;
   }
 }

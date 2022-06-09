@@ -48,8 +48,11 @@ export const Navbar = ({ filter, setIsFiltering }) => {
           </div>
         </div>
       </div>
-      <div className="menu-right inscription"> Inscription</div>
-      <div className="menu-right inscription"> Contact</div>
+      <div className="menu">
+        <div className="menu-right inscription"> Inscription</div>
+        <div className="menu-right inscription"> Contact</div>
+      </div>
+
       <Link to="/panier">
         {" "}
         <i className="far fa-shopping-cart fa-2x">

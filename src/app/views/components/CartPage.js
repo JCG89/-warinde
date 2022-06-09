@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart, removeFromCart } from "../../lib/actions";
 import { Link } from "react-router-dom";
+import "../../styles/App.css";
 
 const Row = (props) => {
   const { id, details, quantity } = props.item;
