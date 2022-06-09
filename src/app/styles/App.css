@@ -275,9 +275,34 @@ footer {
     width: 100%;
     margin-right: 5px;
   }
-
   .row {
     width: 100%;
     margin: 0 auto;
+  }
+  form {
+    position: relative;
+    right: 40px;
+  }
+  .bg-info {
+    width: 90%;
+    height: 45px;
+    position: relative;
+    top: 10px;
+    font-size: 10px;
+  }
+  input {
+    margin: 5px;
+  }
+  .form-control {
+    display: block;
+  }
+  #exampleInputEmail1 {
+    position: relative;
+    top: 10px;
+    width: 90%;
+  }
+  .form-text {
+    position: relative;
+    top: 10px;
   }
 }

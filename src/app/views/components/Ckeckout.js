@@ -76,7 +76,7 @@ export const Checkout = () => {
               }
             />
             <small id="emailHelp" className="form-text text-muted">
-              Nous gardons secret vos données personnel les !.
+              Nous gardons secret vos données personnelles !.
             </small>
           </div>
           <div className="form-group">
@@ -125,12 +125,12 @@ export const Checkout = () => {
 
           <Link
             to="/confirmation"
-            className={`white btn btn-light btn-lg btn-block ckeckout bg-success  confirm ${
+            className={`white btn btn-light btn-lg btn-block ckeckout bg-info  confirm ${
               !isValid && "disabled"
             }`}
             style={{ color: "#FFFF" }}
           >
-            Confirmer la commande
+            valider la commande
           </Link>
         </form>
       </div>
